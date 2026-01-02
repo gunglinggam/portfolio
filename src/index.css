@@ -1,0 +1,61 @@
+/* Import Font dari Google */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap');
+
+/* Setup Tailwind (Wajib ada) */
+@import "tailwindcss";
+
+@theme {
+  --color-dark: #0a0a0a;
+  --font-sans: 'Outfit', sans-serif; /* Mengaktifkan font baru */
+}
+
+/* Settingan Dasar Website */
+html {
+  scroll-behavior: smooth; /* INI KUNCINYA: Biar scroll-nya meluncur halus */
+}
+
+body {
+  background-color: var(--color-dark);
+  color: white;
+  font-family: var(--font-sans); /* Pakai font Outfit */
+  overflow-x: hidden; /* Mencegah scroll samping di HP */
+}
+
+/* Custom Scrollbar (Biar batang scroll di kanan jadi hitam elegan) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #22c55e; /* Hijau saat dihover */
+}
+
+/* Custom Scrollbar Keren */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a; /* Warna track hitam pekat */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #22c55e; /* Warna batang hijau neon */
+  border-radius: 5px;
+  border: 2px solid #0a0a0a; /* Border biar ada jarak dikit */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #16a34a; /* Warna pas di-hover lebih gelap dikit */
+}
+
+/* Biar Smooth Scrolling satu halaman */
+html {
+  scroll-behavior: smooth;
+}
