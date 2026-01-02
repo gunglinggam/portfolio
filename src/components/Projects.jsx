@@ -2,7 +2,7 @@ import React from 'react';
 import SpotlightCard from './SpotlightCard';
 
 import img1 from '../assets/images/koperasi.png';
-import img2 from '../assets/images/project2.jpg'; // Sesuaikan nama file kamu
+import img2 from '../assets/images/project2.jpg';
 import img3 from '../assets/images/pkk.png';
 
 const projectData = [
@@ -12,10 +12,9 @@ const projectData = [
     category: "Fullstack Web App",
     description: "Platform manajemen koperasi sekolah komprehensif. Mengelola stok barang real-time, pencatatan transaksi kasir, dan rekapitulasi laporan keuangan otomatis.",
     techs: ["Laravel / PHP", "MySQL", "Bootstrap", "ChartJS"],
-    // Gambar Dashboard / Transaksi
     image: img1, 
     link: "https://koperasi.smkn8jkt.online",
-    featured: true, // Kartu besar
+    featured: true, 
   },
   {
     id: 2,
@@ -23,7 +22,6 @@ const projectData = [
     category: "Frontend Showcase",
     description: "Website portofolio interaktif dengan tema 'Dark Terminal'. Dibangun untuk performa tinggi dan estetika visual modern.",
     techs: ["React.js", "Tailwind CSS", "Framer Motion"],
-    // Gambar Coding / Code Editor
     image: img2,
     link: "#",
     featured: false,
@@ -34,7 +32,6 @@ const projectData = [
     category: "E-Commerce",
     description: "Marketplace lokal untuk siswa berwirausaha. Memfasilitasi pemesanan makanan kantin secara digital untuk mengurangi antrean.",
     techs: ["CodeIgniter", "Midtrans API", "jQuery"],
-    // Gambar Makanan / Market
     image: img3,
     link: "https://pkk.smkn8jakarta.online",
     featured: false,
@@ -42,10 +39,10 @@ const projectData = [
 ];
 
 const ProjectCard = ({ project }) => {
-  // Logic class untuk grid layout (Featured = 2 kolom)
+  // Logic class grid layout
   const gridClasses = project.featured 
     ? "md:col-span-2 md:row-span-2 min-h-[400px]" 
-    : "md:col-span-1 min-h-[300px]";
+    : "md:col-span-1 min-h-[350px]"; // Sedikit dipertinggi min-h agar lega di mobile
 
   return (
     <SpotlightCard className={`group relative rounded-3xl overflow-hidden border border-white/10 bg-[#0a0a0a] ${gridClasses}`}>
@@ -53,47 +50,61 @@ const ProjectCard = ({ project }) => {
       {/* 1. Background Image */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
          <div 
-            className="w-full h-full bg-cover bg-center transition-all duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
-            style={{ backgroundImage: `url(${project.image})` }}
+           className={`w-full h-full bg-cover bg-center transition-all duration-700 
+           scale-100 group-hover:scale-110 
+           grayscale-0 md:grayscale md:group-hover:grayscale-0`} // Mobile: Full Color, Desktop: Grayscale -> Color
+           style={{ backgroundImage: `url(${project.image})` }}
          ></div>
+         
          {/* Overlay Gelap */}
-         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-70"></div>
+         {/* Mobile: Opacity rendah (biar gambar kelihatan). Desktop: Opacity tinggi (biar teks rahasia). */}
+         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent 
+            opacity-80 md:opacity-90 md:group-hover:opacity-70 transition-opacity duration-500">
+         </div>
       </div>
 
       {/* 2. Content */}
       <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
         
-        {/* Badge Category (Slide Down Effect) */}
-        <div className="absolute top-6 right-6 translate-y-[-20px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-           <span className="bg-black/80 backdrop-blur border border-green-500/30 text-green-400 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+        {/* Badge Category */}
+        {/* Mobile: Selalu muncul. Desktop: Muncul pas hover */}
+        <div className="absolute top-6 right-6 
+            translate-y-0 opacity-100
+            md:-translate-y-[20px] md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 
+            transition-all duration-500">
+            <span className="bg-black/60 backdrop-blur border border-green-500/30 text-green-400 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
               {project.category}
-           </span>
+            </span>
         </div>
 
         {/* Title & Desc */}
-        <div className="transform transition-transform duration-500 group-hover:-translate-y-2">
-           <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-tight">
+        {/* Mobile: Posisi tetap. Desktop: Geser dikit pas hover */}
+        <div className="transform transition-transform duration-500 md:group-hover:-translate-y-2">
+           <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-3 leading-tight drop-shadow-md">
              {project.title}
            </h3>
-           <p className="text-gray-400 text-sm md:text-base line-clamp-2 md:line-clamp-3 mb-4 group-hover:text-gray-200 transition-colors">
+           <p className="text-gray-300 md:text-gray-400 text-sm md:text-base line-clamp-3 mb-4 md:group-hover:text-gray-200 transition-colors">
              {project.description}
            </p>
         </div>
 
-        {/* Tech Stack & Link (Hidden by default, Show on Hover) */}
-        <div className="flex flex-col gap-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-75">
+        {/* Tech Stack & Link */}
+        {/* Mobile: Selalu terlihat (opacity 100). Desktop: Hidden dulu (opacity 0) */}
+        <div className="flex flex-col gap-4 transform transition-all duration-500 delay-75
+            opacity-100 translate-y-0
+            md:opacity-0 md:translate-y-4 md:group-hover:translate-y-0 md:group-hover:opacity-100">
             
             {/* Tech Tags */}
             <div className="flex flex-wrap gap-2">
                 {project.techs.map((tech, idx) => (
-                    <span key={idx} className="text-[10px] font-mono text-green-300 bg-green-900/30 border border-green-500/20 px-2 py-1 rounded">
+                    <span key={idx} className="text-[10px] font-mono text-green-300 bg-green-900/40 border border-green-500/30 px-2 py-1 rounded shadow-sm">
                         {tech}
                     </span>
                 ))}
             </div>
 
             {/* Link Button */}
-            <a href={project.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-white font-mono text-sm hover:text-green-400 transition-colors w-fit group/link">
+            <a href={project.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-white font-mono text-sm hover:text-green-400 transition-colors w-fit group/link pt-2 md:pt-0">
                 <span className="text-green-500">&gt;_</span> View Project
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover/link:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
